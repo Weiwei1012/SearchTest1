@@ -1,22 +1,13 @@
 package com.example.searchrecyclerviewexample
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -52,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 //設定一個outputList用來存入符合規定（找得到對應料理）的食材
                 //將物件放入array中，其中一種方法就是使用MutableList
                 //
+                //val outputList: MutableList<String> = ArrayList()
                 val outputList: MutableList<String> = ArrayList()
                 for (i in ingredients_array.indices){
 
@@ -61,17 +53,44 @@ class MainActivity : AppCompatActivity() {
 //                        ingredients_true += ingredients_array[i]
 
                         //若有，存入輸出array
-                        outputList.add(ingredients_array[i])
+                        //outputList.add(ingredients_array[i])
+                        when(ingredients_array[i]){
+                            "燕麥" -> getItemFoodList(outputList,resources.getStringArray(R.array.燕麥))
+                            "牛奶" -> getItemFoodList(outputList,resources.getStringArray(R.array.牛奶))
+                            "雞蛋"-> getItemFoodList(outputList,resources.getStringArray(R.array.蛋))
+                            "蛋" -> getItemFoodList(outputList,resources.getStringArray(R.array.蛋))
+                            "青蔥"-> getItemFoodList(outputList,resources.getStringArray(R.array.蔥))
+                            "蔥" -> getItemFoodList(outputList,resources.getStringArray(R.array.蔥))
+                            "洋蔥" -> getItemFoodList(outputList,resources.getStringArray(R.array.蔥))
+                            "菇"  -> getItemFoodList(outputList,resources.getStringArray(R.array.菇))
+                            "香菇"  -> getItemFoodList(outputList,resources.getStringArray(R.array.菇))
+                            "菇類"  -> getItemFoodList(outputList,resources.getStringArray(R.array.菇))
+                            "水果" -> getItemFoodList(outputList,resources.getStringArray(R.array.水果))
+                            "果醬" -> getItemFoodList(outputList,resources.getStringArray(R.array.果醬))
+                            "奶油" -> getItemFoodList(outputList,resources.getStringArray(R.array.奶油))
+                            "吐司" -> getItemFoodList(outputList,resources.getStringArray(R.array.吐司))
+                            "去骨雞腿" -> getItemFoodList(outputList,resources.getStringArray(R.array.去骨雞腿肉))
+                            "去骨雞腿肉" -> getItemFoodList(outputList,resources.getStringArray(R.array.去骨雞腿肉))
+                            "優格" -> getItemFoodList(outputList,resources.getStringArray(R.array.優格))
+                            "雞胸" -> getItemFoodList(outputList,resources.getStringArray(R.array.雞胸))
+                            "雞胸肉" -> getItemFoodList(outputList,resources.getStringArray(R.array.雞胸))
+                            "雞腿" -> getItemFoodList(outputList,resources.getStringArray(R.array.雞胸))
+                            "雞腿肉" -> getItemFoodList(outputList,resources.getStringArray(R.array.雞腿))
+                        }
 
                     }
 //
                 }
 
+
                 //透過Intent將輸出array傳到DetailsActivity，名稱為"passsearched"
                 //若要將array透過intent傳送，需使用putStringArrayListExtra來實作
                 val intent = Intent(baseContext, DetailsActivity::class.java)
+
                 // distinct 可過濾在陣列中重複的字串
                 intent.putStringArrayListExtra("passsearched", ArrayList(outputList.distinct()))
+                //intent.putStringArrayListExtra("passsearched", ArrayList(outputList))
+
                 startActivity(intent)
 
 //                else{
@@ -106,6 +125,23 @@ class MainActivity : AppCompatActivity() {
         adapter = RecyclerView_Adapter(hotList)
         hotlist_rv.adapter = adapter
     }
+
+    private fun getItemFoodList(output: MutableList<String>, ingredients_map: Array<String>){
+        output.addAll(ingredients_map)
+    }
+
+//    private fun CountingSort(input: MutableList<String>): List<String> {
+//
+//        val output: MutableList<String>
+//
+//        val counter: Array<Int>
+//        for (i in input.indices){
+//
+//        }
+//
+//
+//        return output.distinct()
+//    }
 
 
 }
